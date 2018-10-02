@@ -1,11 +1,16 @@
 package com.luv2code.springdemo;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 @Component
+//@Scope("prototype") //"singleton" is default
 public class TennisCoach implements Coach {
 	
 //	private FortuneService fortuneService; // for normal below commented methods
@@ -63,6 +68,18 @@ public class TennisCoach implements Coach {
 	@Override
 	public String getDailyFortune() {		
 		return fortuneService.getFortune();
+	}
+	
+	// bean life cycle pre and post calls
+	// init method
+	@PostConstruct
+	public void doMyStartUpStuff() {
+		System.out.println("Init tennis init bean");
+	}
+	
+	@PreDestroy
+	public void doMyCleanUpStuff() {
+		System.out.println("Destroy tennis destroy bean");
 	}
 
 }
