@@ -11,7 +11,7 @@
 	<body>
 		<h2>Spring MVC Demo - Hello</h2>
 		<hr>
-		<a href="showForm">Hello World Form</a>
-		<img src="${pageContext.request.contextPath}/resources/images/spring-logo.png">
+		<a href="hello/showForm">Hello World Form</a>
+		<%-- <img src="${pageContext.request.contextPath}/resources/images/spring-logo.png"> --%>
 	</body>
 </html>
