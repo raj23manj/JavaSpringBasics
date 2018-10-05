@@ -37,8 +37,13 @@
 			Ruby <form:radiobutton path="favoriteLanguage" value="Ruby"/>
 			
 			
-		<!-- <form:radiobuttons path="favoriteLanguage" items="${student.favoriteLanguageOptions}"  /> -->	
+		<!-- form:radiobuttons path="favoriteLanguage" items="student.favoriteLanguageOptions"  -->	
+			<br><br>
 			
+			Favorite OS:
+			Linux <form:checkbox path="operatingSystems" value="Linux"/>
+			Mac Os <form:checkbox path="operatingSystems" value="Mac Os"/>
+			MS Windows <form:checkbox path="operatingSystems" value="MS Windows"/>
 			
 			<br><br>
 			<input type="submit" value="Submit">
