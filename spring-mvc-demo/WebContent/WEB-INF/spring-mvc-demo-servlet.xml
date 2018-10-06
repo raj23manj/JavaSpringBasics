@@ -33,6 +33,11 @@
 	<!-- see video 116 section to add css and js and images  and 117 to do tom cat deployment -->
 	
 	<util:properties id="countryOptions" location="classpath:../countries.properties" />
+	
+	<!-- load custom message resource -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basenames" value="resources/messages"/>
+	</bean>
 
 </beans>
 
