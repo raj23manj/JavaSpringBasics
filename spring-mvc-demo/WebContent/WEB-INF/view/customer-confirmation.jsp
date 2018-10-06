@@ -8,6 +8,6 @@
 	</head>
 	
 	<body>
-		The Customer is: ${customer.firstName}-${customer.lastName}-${customer.freePasses}-${customer.postalCode}
+		The Customer is: ${customer.firstName}-${customer.lastName}-${customer.freePasses}-${customer.postalCode}-${customer.courseCode}
 	</body>
 </html>
