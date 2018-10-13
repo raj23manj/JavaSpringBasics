@@ -7,10 +7,12 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+//import org.springframework.transaction.annotation.Transactional;
 
 import com.luv2code.springdemo.entity.Customer;
 
+
+// https://stackoverflow.com/questions/19154202/data-access-object-dao-in-java
 // always applied to DAO implementations
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
@@ -20,7 +22,8 @@ public class CustomerDAOImpl implements CustomerDAO {
 	private SessionFactory sessionFactory;
 	
 	@Override
-	@Transactional
+	// not good design pattern
+	//@Transactional
 	public List<Customer> getCustomers() {
 		
 		// get current hibernate session
