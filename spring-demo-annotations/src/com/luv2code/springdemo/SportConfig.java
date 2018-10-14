@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-//@ComponentScan("com.luv2code.springdemo") // it scans all @component in package and intializes
+@ComponentScan("com.luv2code.springdemo") // it scans all @component in package and intializes
 @PropertySource("classpath:sport.properties")
 public class SportConfig {
 
