@@ -9,8 +9,9 @@ public class JavaConfigDemoApp {
 		// read config java class
 		AnnotationConfigApplicationContext context = 
 				new AnnotationConfigApplicationContext(SportConfig.class);
+		//Coach theCoach = context.getBean("tennisCoach", Coach.class);
 		
-		Coach theCoach = context.getBean("tennisCoach", Coach.class);
+		Coach theCoach = context.getBean("swimCoach", Coach.class);
 		
 		System.out.println(theCoach.getDailyWorkout());
 		System.out.println(theCoach.getDailyFortune());
