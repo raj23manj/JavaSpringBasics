@@ -2,11 +2,14 @@ package com.lu2code.aopdemo.aspect;
 
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -19,6 +22,8 @@ import com.lu2code.aopdemo.Account;
 @Component
 @Order(2)
 public class MyDemoLoggingAspect {
+	
+	private Logger myLogger = Logger.getLogger(getClass().getName());
 	
 //	//#### point cut declarations ### for reusability
 //	@Pointcut("execution(* com.lu2code.aopdemo.dao.*.*(..))")
@@ -40,36 +45,36 @@ public class MyDemoLoggingAspect {
 	//###Packages###
 //	@Before("forDaoPackage()") // any modifier ,return type, package name, any class, any method
 //	public void beforeAddAccountAdvice() {	
-//		System.out.println("\n=====>>> Executing @Before advice on addAccount()");		
+//		myLogger.info("\n=====>>> Executing @Before advice on addAccount()");		
 //	}
 //	
 //	@Before("forDaoPackage()") // any modifier ,return type, package name, any class, any method
 //	public void performApiAnalytics() {	
-//		System.out.println("\n=====>>> Executing @Before Analytics for API");		
+//		myLogger.info("\n=====>>> Executing @Before Analytics for API");		
 //	}
 	
 	
 	@Before("com.lu2code.aopdemo.aspect.LuvAopExpressions.forDaoPackageNoGetterSetter()") // any modifier ,return type, package name, any class, any method
 	public void beforeAddAccountAdvice(JoinPoint theJoinPoint) {	
-		System.out.println("\n=====>>> Executing @Before advice on addAccount()");	
+		myLogger.info("\n=====>>> Executing @Before advice on addAccount()");	
 		
 		// display the method signature
 		MethodSignature methodSig = (MethodSignature) theJoinPoint.getSignature();
-		System.out.println("\nMethod SIgnature: " + methodSig);
+		myLogger.info("\nMethod SIgnature: " + methodSig);
 		
 		// display method arguments
 		
 		Object[] args = theJoinPoint.getArgs();
 		
 		for(Object tempArg : args) {
-			System.out.println(tempArg);
+			myLogger.info(tempArg.toString());
 			
 			if (tempArg instanceof Account)  {
 				// downcast and print Account specific stuff
 				Account theAccount = (Account) tempArg;
 				
-				System.out.println("accountName :" + theAccount.getName());
-				System.out.println("accountLevel :" + theAccount.getLevel());
+				myLogger.info("accountName :" + theAccount.getName());
+				myLogger.info("accountLevel :" + theAccount.getLevel());
 				
 			}
 		}
@@ -77,13 +82,13 @@ public class MyDemoLoggingAspect {
 	
 //	@Before("forDaoPackageNoGetterSetter()") // any modifier ,return type, package name, any class, any method
 //	public void performApiAnalytics() {	
-//		System.out.println("\n=====>>> Executing @Before Analytics for API");		
+//		myLogger.info("\n=====>>> Executing @Before Analytics for API");		
 //	}
 	
 	
 //	@Before("forDaoPackageNoGetterSetter()") // any modifier ,return type, package name, any class, any method
 //	public void loggingToCloudAsync() {	
-//		System.out.println("\n=====>>> Logging to cloud");		
+//		myLogger.info("\n=====>>> Logging to cloud");		
 //	}
 	
 	
@@ -94,15 +99,15 @@ public class MyDemoLoggingAspect {
 	public void afterReturningFindAccountsAdvice(JoinPoint theJoinPoint, List<Account> result) {
 		
 		String method = theJoinPoint.getSignature().toShortString();
-		System.out.println("\n ========> Executing @AfterReturning on method: " + method);
+		myLogger.info("\n ========> Executing @AfterReturning on method: " + method);
 		
-		System.out.println("\n ========> result is: " + result);
+		myLogger.info("\n ========> result is: " + result);
 		
 		// post processing data
 		// convert account names to upper case
 		convertAccountNamesToUpperCase(result);
 		
-		System.out.println("\n ========> result is: " + result);
+		myLogger.info("\n ========> result is: " + result);
 		
 	}
 
@@ -120,9 +125,9 @@ public class MyDemoLoggingAspect {
 			)
 	public void afterTHrowingFindAccountAdvice(JoinPoint theJoinPoint, Throwable theExc) {
 		String method = theJoinPoint.getSignature().toShortString();
-		System.out.println("\n ========> Executing @AfterThrowing on method: " + method);
+		myLogger.info("\n ========> Executing @AfterThrowing on method: " + method);
 		
-		System.out.println("\n ========> THe exception is: " + theExc);
+		myLogger.info("\n ========> THe exception is: " + theExc);
 
 	}
 	
@@ -130,7 +135,40 @@ public class MyDemoLoggingAspect {
 	@After("execution(* com.lu2code.aopdemo.dao.AccountDAO.findAccounts(..))")
 	public void afterFinallyFindAccountsAdvice(JoinPoint theJoinPoint) {
 		String method = theJoinPoint.getSignature().toShortString();
-		System.out.println("\n ========> Executing @AfterFinally on method: " + method);
+		myLogger.info("\n ========> Executing @AfterFinally on method: " + method);
 	}
+	
+	// Around Advice, happens at start and end, notice here JoinPoint is different "ProceedingJoinPoint"
+	@Around("execution(* com.lu2code.aopdemo.service.*.getFortune(..))")
+    public Object aroundGetFortune(
+    			ProceedingJoinPoint theProceedingJoinPoint 
+    		) throws Throwable {
+		
+		// print out method we are advising on
+		String method = theProceedingJoinPoint.getSignature().toShortString();
+		myLogger.info("\n ========> Executing @Around on method: " + method);
+		
+		
+		// get begin timestamp
+		long begin = System.currentTimeMillis();
+		
+		// execute method
+		// the ProceedingJoinPoint here is used to proceed the execution of the method that is called up, here getFortune
+		Object result = theProceedingJoinPoint.proceed();
+		
+		
+		
+		//get end timestamp
+		long end = System.currentTimeMillis();
+		
+		//compute duration and display it
+		long duration = end - begin;
+		
+		myLogger.info("\n======> Duration: " + duration/1000.0 + "seconds");
+		
+		// result consists of the calling program result returned by getFortune
+    	return result;
+    }
+	
 	
 }
