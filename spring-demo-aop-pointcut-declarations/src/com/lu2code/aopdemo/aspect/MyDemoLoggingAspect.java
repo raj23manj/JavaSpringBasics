@@ -1,6 +1,10 @@
 package com.lu2code.aopdemo.aspect;
 
+
+import java.util.List;
+
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -79,5 +83,32 @@ public class MyDemoLoggingAspect {
 //	public void loggingToCloudAsync() {	
 //		System.out.println("\n=====>>> Logging to cloud");		
 //	}
+	
+	
+	// add a new advice for @AfterReturning on the findAccounts method
+	@AfterReturning(
+			pointcut="execution(* com.lu2code.aopdemo.dao.AccountDAO.findAccounts(..))",
+			returning="result")
+	public void afterReturningFindAccountsAdvice(JoinPoint theJoinPoint, List<Account> result) {
+		
+		String method = theJoinPoint.getSignature().toShortString();
+		System.out.println("\n ========> Executing @AfterReturning on method: " + method);
+		
+		System.out.println("\n ========> result is: " + result);
+		
+		// post processing data
+		// convert account names to upper case
+		convertAccountNamesToUpperCase(result);
+		
+		System.out.println("\n ========> result is: " + result);
+		
+	}
+
+	private void convertAccountNamesToUpperCase(List<Account> result) {
+		for(Account tempAccount : result) {
+			String theUpperName = tempAccount.getName().toUpperCase();
+			tempAccount.setName(theUpperName);
+		}
+	}
 	
 }
