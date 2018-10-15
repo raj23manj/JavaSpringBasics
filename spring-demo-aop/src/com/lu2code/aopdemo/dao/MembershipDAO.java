@@ -12,4 +12,9 @@ public class MembershipDAO {
 		System.out.println(getClass() + ": Doing My Db Work: MembershipDAO.addSillyMember");
 		return true;
 	}
+	
+	public boolean goToSleep() {
+		System.out.println(getClass() + ": Doing My Db Work: MembershipDAO.goToSleep");
+		return false;
+	}
 }
