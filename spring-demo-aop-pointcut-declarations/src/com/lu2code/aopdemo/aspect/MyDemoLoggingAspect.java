@@ -166,7 +166,8 @@ public class MyDemoLoggingAspect {
 			
 			// give user a custom message, to calling method
 			
-			result = "Major Accident! But no worries, your private AOP helicopter on the way";
+			//result = "Major Accident! But no worries, your private AOP helicopter on the way";
+			throw e;
 		}
 		
 		
