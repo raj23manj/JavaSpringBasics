@@ -6,7 +6,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import com.lu2code.aopdemo.dao.AccountDAO;
 
-public class AfterReturningDemoApp {
+public class AfterThrowingDemoApp {
 
 	public static void main(String[] args) {
 		// read spring config java class
@@ -16,8 +16,17 @@ public class AfterReturningDemoApp {
 		
 		// get the bean from spring container
 		AccountDAO theAccountDAO = context.getBean("accountDAO", AccountDAO.class);
+		List<Account> theAccounts = null;
+		// 1st add try catch
+		try {
+			// add a boolean flag to simulate exception
+			boolean tripwire = true;
+			theAccounts = theAccountDAO.findAccounts(tripwire);
+		} 
+		catch(Exception e) {
+			System.out.println("\n\n---Main Progam caught exception" + e);
+		}
 		
-		List<Account> theAccounts = theAccountDAO.findAccounts(false);
 		
 		
 		System.out.println("\n\n--------------------");

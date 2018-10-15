@@ -42,7 +42,12 @@ public class AccountDAO {
 		this.serviceCode = serviceCode;
 	}
 	
-	public List<Account> findAccounts() {
+	public List<Account> findAccounts(boolean tripwire) {
+		
+		if(tripwire) {
+			throw new RuntimeException("No Soup For you !!!");
+		}
+		
 		List<Account> myAccounts = new ArrayList<>();
 		
 		Account temp1 = new Account("John", "Silver");

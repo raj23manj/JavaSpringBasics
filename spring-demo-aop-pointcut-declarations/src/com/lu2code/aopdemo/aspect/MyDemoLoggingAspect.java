@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -88,7 +89,7 @@ public class MyDemoLoggingAspect {
 	// add a new advice for @AfterReturning on the findAccounts method
 	@AfterReturning(
 			pointcut="execution(* com.lu2code.aopdemo.dao.AccountDAO.findAccounts(..))",
-			returning="result")
+			returning="result") // here returning should be same as param below
 	public void afterReturningFindAccountsAdvice(JoinPoint theJoinPoint, List<Account> result) {
 		
 		String method = theJoinPoint.getSignature().toShortString();
@@ -109,6 +110,19 @@ public class MyDemoLoggingAspect {
 			String theUpperName = tempAccount.getName().toUpperCase();
 			tempAccount.setName(theUpperName);
 		}
+	}
+	
+	// AfterThrowing advice
+	@AfterThrowing(
+			pointcut="execution(* com.lu2code.aopdemo.dao.AccountDAO.findAccounts(..))",
+				throwing="theExc"
+			)
+	public void afterTHrowingFindAccountAdvice(JoinPoint theJoinPoint, Throwable theExc) {
+		String method = theJoinPoint.getSignature().toShortString();
+		System.out.println("\n ========> Executing @AfterThrowing on method: " + method);
+		
+		System.out.println("\n ========> THe exception is: " + theExc);
+
 	}
 	
 }
