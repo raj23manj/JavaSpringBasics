@@ -78,7 +78,7 @@ public class MyDemoLoggingAspect {
 				
 			}
 		}
-	}
+	} 
 	
 //	@Before("forDaoPackageNoGetterSetter()") // any modifier ,return type, package name, any class, any method
 //	public void performApiAnalytics() {	
@@ -154,7 +154,20 @@ public class MyDemoLoggingAspect {
 		
 		// execute method
 		// the ProceedingJoinPoint here is used to proceed the execution of the method that is called up, here getFortune
-		Object result = theProceedingJoinPoint.proceed();
+		Object result = null;
+		
+		 try {
+			result = theProceedingJoinPoint.proceed();
+		} catch (Exception e) {
+			//e.printStackTrace();
+			
+			// log exception
+			myLogger.info(e.getMessage());
+			
+			// give user a custom message, to calling method
+			
+			result = "Major Accident! But no worries, your private AOP helicopter on the way";
+		}
 		
 		
 		
