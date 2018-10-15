@@ -56,7 +56,7 @@ public class AccountDAO {
 		
 		myAccounts.add(temp1);
 		myAccounts.add(temp2);
-		myAccounts.add(temp2);
+		myAccounts.add(temp3);
 		
 		
 		return myAccounts;

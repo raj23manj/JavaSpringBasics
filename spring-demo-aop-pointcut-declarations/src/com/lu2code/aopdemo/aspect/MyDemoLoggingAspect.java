@@ -4,6 +4,7 @@ package com.lu2code.aopdemo.aspect;
 import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -114,7 +115,7 @@ public class MyDemoLoggingAspect {
 	
 	// AfterThrowing advice
 	@AfterThrowing(
-			pointcut="execution(* com.lu2code.aopdemo.dao.AccountDAO.findAccounts(..))",
+			    pointcut="execution(* com.lu2code.aopdemo.dao.AccountDAO.findAccounts(..))",
 				throwing="theExc"
 			)
 	public void afterTHrowingFindAccountAdvice(JoinPoint theJoinPoint, Throwable theExc) {
@@ -123,6 +124,13 @@ public class MyDemoLoggingAspect {
 		
 		System.out.println("\n ========> THe exception is: " + theExc);
 
+	}
+	
+	// After Finally, remember after runs first followed by after throwing. After runs for error or success 
+	@After("execution(* com.lu2code.aopdemo.dao.AccountDAO.findAccounts(..))")
+	public void afterFinallyFindAccountsAdvice(JoinPoint theJoinPoint) {
+		String method = theJoinPoint.getSignature().toShortString();
+		System.out.println("\n ========> Executing @AfterFinally on method: " + method);
 	}
 	
 }
