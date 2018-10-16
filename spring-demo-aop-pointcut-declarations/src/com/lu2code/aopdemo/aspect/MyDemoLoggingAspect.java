@@ -78,7 +78,7 @@ public class MyDemoLoggingAspect {
 				
 			}
 		}
-	} 
+	}  
 	
 //	@Before("forDaoPackageNoGetterSetter()") // any modifier ,return type, package name, any class, any method
 //	public void performApiAnalytics() {	
@@ -170,7 +170,7 @@ public class MyDemoLoggingAspect {
 			throw e;
 		}
 		
-		
+		 
 		
 		//get end timestamp
 		long end = System.currentTimeMillis();

@@ -78,7 +78,7 @@
 //			}
 //		}
 //	}
-//	
+//	 
 ////	@Before("forDaoPackageNoGetterSetter()") // any modifier ,return type, package name, any class, any method
 ////	public void performApiAnalytics() {	
 ////		System.out.println("\n=====>>> Executing @Before Analytics for API");		
@@ -166,8 +166,8 @@
 //		System.out.println("\n======> Duration: " + duration/1000.0 + "seconds");
 //		
 //		// result consists of the calling program result returned by getFortune
-//    	return result;
+//    	return result; 
 //    }
 //	
-//	
+//	 
 //}

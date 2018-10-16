@@ -14,3 +14,4 @@ public class MyCloudLogAsyncAspect {
 		System.out.println("\n=====>>> Logging to cloud");		
 	}
 }
+ 
