@@ -29,5 +29,22 @@
      			Role: <security:authentication property="principal.authorities"/>
      		</p>
      	</div>
+     	<hr />
+     	
+     	<div>
+     		<p>
+     			<security:authorize access="hasRole('MANAGER')">
+     				<a href="${pageContext.request.contextPath}/leaders">Leadership Meetings</a>
+     			</security:authorize>	
+     		</p>
+     	</div>
+     	
+     	<div>
+     		<p>
+     			<security:authorize access="hasRole('ADMIN')">
+     				<a href="${pageContext.request.contextPath}/systems">Admin Meetings</a>
+     			</security:authorize>	 			
+     		</p>
+     	</div>
      </body>
 </html>

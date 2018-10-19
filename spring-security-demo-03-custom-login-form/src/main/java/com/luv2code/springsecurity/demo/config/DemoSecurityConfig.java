@@ -28,16 +28,22 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		    .anyRequest()
-		    .authenticated()
+		    //.anyRequest() // gives authentication to all
+		    //.authenticated() // gives authentication to all
+		    .antMatchers("/").hasRole("EMPLOYEE")
+		    .antMatchers("/leaders/**").hasRole("MANAGER")
+		    .antMatchers("/systems/**").hasRole("ADMIN")
 		    .and()
 		    .formLogin()
-		    .loginPage("/showMyLoginPage")
-		    .loginProcessingUrl("/authenticateTheUser")
-		    .permitAll()
+			    .loginPage("/showMyLoginPage")
+			    .loginProcessingUrl("/authenticateTheUser")
+			    .permitAll()
 		    .and()
 		    .logout()
-		    .permitAll();
+		    	.permitAll()
+		    .and()
+		    .exceptionHandling()
+		    	.accessDeniedPage("/access-denied");
 	}
 	
 	
