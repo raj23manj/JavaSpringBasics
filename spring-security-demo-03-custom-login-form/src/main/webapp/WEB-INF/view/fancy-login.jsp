@@ -80,6 +80,13 @@
 								<button type="submit" class="btn btn-success">Login</button>
 							</div>
 						</div>
+						
+						<!-- 
+						   using normal form html 
+						   use to add csrf token
+						   <input type="hidden" name="_csrf.parameterName" value="_csrf.token"/>
+						   in $ and {}
+						 -->
 
 					</form:form>
 
