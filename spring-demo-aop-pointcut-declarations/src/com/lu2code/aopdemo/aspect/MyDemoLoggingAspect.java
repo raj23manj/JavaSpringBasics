@@ -150,7 +150,7 @@ public class MyDemoLoggingAspect {
 		
 		
 		// get begin timestamp
-		long begin = System.currentTimeMillis();
+		long begin = System.currentTimeMillis(); 
 		
 		// execute method
 		// the ProceedingJoinPoint here is used to proceed the execution of the method that is called up, here getFortune
@@ -164,7 +164,7 @@ public class MyDemoLoggingAspect {
 			// log exception
 			myLogger.info(e.getMessage());
 			
-			// give user a custom message, to calling method
+			// give user a custom message, to calling method 
 			
 			//result = "Major Accident! But no worries, your private AOP helicopter on the way";
 			throw e;

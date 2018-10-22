@@ -21,7 +21,7 @@
 //@Aspect
 //@Component
 //@Order(2)
-//public class MyDemoLoggingAspectOriginal {
+//public class MyDemoLoggingAspectOriginal { 
 //
 //	
 ////	//#### point cut declarations ### for reusability
