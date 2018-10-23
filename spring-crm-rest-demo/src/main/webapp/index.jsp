@@ -5,6 +5,15 @@
 
 <hr>
 
+<div>
+	<a href="${pageContext.request.contextPath}/api/customers">customers</a>
+</div>
+
+<hr>
+
+<div>
+	<a href="${pageContext.request.contextPath}/api/customers/6">customers-6</a>
+</div>
 
 </body>
 </html>
